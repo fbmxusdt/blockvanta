@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --border-gold: rgba(200, 150, 12, 0.12);
+    --border-gold2: rgba(200, 150, 12, 0.22);
+    --border-gold3: rgba(200, 150, 12, 0.4);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-navy-950 text-ivory font-mono;
+    overflow-x: hidden;
+  }
+
+  /* Grid texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      linear-gradient(rgba(200, 150, 12, 0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 150, 12, 0.022) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Radial glow overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 60% -10%, rgba(200, 150, 12, 0.055) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at -10% 70%, rgba(10, 28, 58, 0.8) 0%, transparent 55%);
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  /* Gold border utility */
+  .border-gold {
+    border-color: var(--border-gold);
+  }
+  .border-gold2 {
+    border-color: var(--border-gold2);
+  }
+  .border-gold3 {
+    border-color: var(--border-gold3);
+  }
+
+  /* Glassmorphic nav */
+  .glass-nav {
+    background: rgba(1, 10, 24, 0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border-gold);
+  }
+
+  /* Section reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Gold accent line on card hover */
+  .vault-card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .vault-card:hover .vault-card-accent {
+    opacity: 1;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #010A18;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(200, 150, 12, 0.3);
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 150, 12, 0.5);
+  }
+
+  /* Input focus ring */
+  .input-gold:focus {
+    outline: none;
+    border-color: var(--border-gold3);
+  }
+
+  /* Pulse dot */
+  .pulse-dot {
+    animation: pulseDot 2s infinite;
+  }
+  @keyframes pulseDot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* Blink animation for active badge */
+  .blink {
+    animation: blinkAnim 2s infinite;
+  }
+  @keyframes blinkAnim {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+  }
+}
+
+/* Web3Modal overrides */
+w3m-modal {
+  z-index: 1000;
+}
